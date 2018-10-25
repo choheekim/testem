@@ -86,7 +86,7 @@ function testExample(example) {
   return retry(npmInstall(runOpts), { max_tries: RETRIES }).then(function() {
     var cmd = testCmd;
     if (skipDefiningReporter.indexOf(example) === -1) {
-      cmd += ' --launch phantomjs';
+      cmd += ' --launch Chrome';
     }
 
     return retry(runExample(cmd, runOpts), { max_tries: RETRIES });
