@@ -3,6 +3,7 @@ os:
 - linux
 osx_image: xcode8
 addons:
+  chrome: stable
   apt:
     packages:
       - xvfb
@@ -22,12 +23,7 @@ matrix:
       env: BROWSER_TESTS=1 SAUCE_USERNAME=testem-ci SAUCE_ACCESS_KEY=1f00979e-0252-4d69-98ff-f6c85d1a746b
   exclude:
     - os: osx
-sudo: false
-before_install:
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      brew update;
-      brew install phantomjs;
-    fi
+sudo: require
   - npm config set spin false
 install:
   - export DISPLAY=':99.0'

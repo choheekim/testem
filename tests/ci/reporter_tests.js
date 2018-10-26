@@ -62,13 +62,13 @@ describe('test reporters', function() {
       context('without errors', function() {
         it('writes out TAP', function() {
           var reporter = new TapReporter(false, stream, config);
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it does stuff',
             passed: true,
             logs: ['some log'],
             runDuration: 3,
           });
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it is skipped',
             skipped: true,
             logs: [],
@@ -76,12 +76,12 @@ describe('test reporters', function() {
           });
           reporter.finish();
           assert.deepEqual(stream.read().toString().split('\n'), [
-            `ok 1 phantomjs - [3 ms] - it does stuff`,
+            `ok 1 chrome - [3 ms] - it does stuff`,
             '    ---',
             '        Log: |',
             '            \'some log\'',
             '    ...',
-            `skip 2 phantomjs - [0 ms] - it is skipped`,
+            `skip 2 chrome - [0 ms] - it is skipped`,
             '',
             '1..2',
             '# tests 2',
@@ -98,20 +98,20 @@ describe('test reporters', function() {
       context('with errors', function() {
         it('writes out TAP with failure info', function() {
           var reporter = new TapReporter(false, stream, config);
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it does stuff',
             passed: true,
             logs: ['some log'],
             runDuration: 3,
           });
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it fails',
             passed: false,
             error: { message: 'it crapped out' },
             logs: ['I am a log', 'Useful information'],
             runDuration: 5,
           });
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it is skipped',
             skipped: true,
             logs: [],
@@ -119,12 +119,12 @@ describe('test reporters', function() {
           });
           reporter.finish();
           assert.deepEqual(stream.read().toString().split('\n'), [
-            `ok 1 phantomjs - [3 ms] - it does stuff`,
+            `ok 1 chrome - [3 ms] - it does stuff`,
             '    ---',
             '        Log: |',
             '            \'some log\'',
             '    ...',
-            `not ok 2 phantomjs - [5 ms] - it fails`,
+            `not ok 2 chrome - [5 ms] - it fails`,
             '    ---',
             '        message: >',
             '            it crapped out',
@@ -132,7 +132,7 @@ describe('test reporters', function() {
             '            \'I am a log\'',
             '            \'Useful information\'',
             '    ...',
-            `skip 3 phantomjs - [0 ms] - it is skipped`,
+            `skip 3 chrome - [0 ms] - it is skipped`,
             '',
             '1..3',
             '# tests 3',
@@ -153,13 +153,13 @@ describe('test reporters', function() {
       context('without errors', function() {
         it('writes out TAP', function() {
           var reporter = new TapReporter(false, stream, config);
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it does stuff',
             passed: true,
             logs: ['some log'],
             runDuration: 3,
           });
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it is skipped',
             skipped: true,
             logs: [],
@@ -167,8 +167,8 @@ describe('test reporters', function() {
           });
           reporter.finish();
           assert.deepEqual(stream.read().toString().split('\n'), [
-            `ok 1 phantomjs - [3 ms] - it does stuff`,
-            `skip 2 phantomjs - [0 ms] - it is skipped`,
+            `ok 1 chrome - [3 ms] - it does stuff`,
+            `skip 2 chrome - [0 ms] - it is skipped`,
             '',
             '1..2',
             '# tests 2',
@@ -185,20 +185,20 @@ describe('test reporters', function() {
       context('with errors', function() {
         it('writes out TAP with failure info', function() {
           var reporter = new TapReporter(false, stream, config);
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it does stuff',
             passed: true,
             logs: ['some log'],
             runDuration: 50,
           });
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it fails',
             passed: false,
             error: { message: 'it crapped out' },
             logs: ['I am a log', 'Useful information'],
             runDuration: 5,
           });
-          reporter.report('phantomjs', {
+          reporter.report('chrome', {
             name: 'it is skipped',
             skipped: true,
             logs: [],
@@ -206,8 +206,8 @@ describe('test reporters', function() {
           });
           reporter.finish();
           assert.deepEqual(stream.read().toString().split('\n'), [
-            `ok 1 phantomjs - [50 ms] - it does stuff`,
-            `not ok 2 phantomjs - [5 ms] - it fails`,
+            `ok 1 chrome - [50 ms] - it does stuff`,
+            `not ok 2 chrome - [5 ms] - it fails`,
             '    ---',
             '        message: >',
             '            it crapped out',
@@ -215,7 +215,7 @@ describe('test reporters', function() {
             '            \'I am a log\'',
             '            \'Useful information\'',
             '    ...',
-            `skip 3 phantomjs - [0 ms] - it is skipped`,
+            `skip 3 chrome - [0 ms] - it is skipped`,
             '',
             '1..3',
             '# tests 3',
@@ -231,14 +231,14 @@ describe('test reporters', function() {
     context('without name', function() {
       it('writes out TAP', function() {
         var reporter = new TapReporter(false, stream, config);
-        reporter.report('phantomjs', {
+        reporter.report('chrome', {
           passed: true,
           logs: [],
           runDuration: 1,
         });
         reporter.finish();
         assert.deepEqual(stream.read().toString().split('\n'), [
-          `ok 1 phantomjs - [1 ms]`,
+          `ok 1 chrome - [1 ms]`,
           '',
           '1..1',
           '# tests 1',
@@ -258,7 +258,7 @@ describe('test reporters', function() {
       it('writes out summary', function() {
         var stream = new PassThrough();
         var reporter = new DotReporter(false, stream);
-        reporter.report('phantomjs', {
+        reporter.report('chrome', {
           name: 'it does stuff',
           passed: true,
           logs: []
@@ -274,7 +274,7 @@ describe('test reporters', function() {
       it('writes out summary with failure info', function() {
         var stream = new PassThrough();
         var reporter = new DotReporter(false, stream);
-        reporter.report('phantomjs', {
+        reporter.report('chrome', {
           name: 'it fails',
           passed: false,
           error: {
@@ -292,7 +292,7 @@ describe('test reporters', function() {
         output.shift();
         assert.match(output.shift(), / {2}1 tests complete \(\d+ ms\)/);
         output.shift();
-        assert.match(output.shift(), / {2}1\) \[phantomjs\] it fails/);
+        assert.match(output.shift(), / {2}1\) \[chrome\] it fails/);
         assert.match(output.shift(), / {5}This should be a number/);
         output.shift();
         assert.match(output.shift(), / {5}expected: 7/);
@@ -308,7 +308,7 @@ describe('test reporters', function() {
       it('writes out summary', function() {
         var stream = new PassThrough();
         var reporter = new DotReporter(false, stream);
-        reporter.report('phantomjs', {
+        reporter.report('chrome', {
           name: 'it does stuff',
           skipped: true,
           logs: []
@@ -324,7 +324,7 @@ describe('test reporters', function() {
       it('writes out summary with negated expected in failure info', function() {
         var stream = new PassThrough();
         var reporter = new DotReporter(false, stream);
-        reporter.report('phantomjs', {
+        reporter.report('chrome', {
           name: 'it fails',
           passed: false,
           error: {
@@ -343,7 +343,7 @@ describe('test reporters', function() {
         output.shift();
         assert.match(output.shift(), / {2}1 tests complete \(\d+ ms\)/);
         output.shift();
-        assert.match(output.shift(), / {2}1\) \[phantomjs\] it fails/);
+        assert.match(output.shift(), / {2}1\) \[chrome\] it fails/);
         assert.match(output.shift(), / {5}This should not be foo/);
         output.shift();
         assert.match(output.shift(), / {5}expected: NOT 'foo'/);
@@ -368,14 +368,14 @@ describe('test reporters', function() {
 
     it('writes out and XML escapes results', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it does <cool> "cool" \'cool\' stuff',
         passed: true
       });
       reporter.finish();
       var output = stream.read().toString();
       assert.match(output, /<testsuite name="Testem Tests" tests="1" skipped="0" failures="0" timestamp="(.+)" time="(\d+(\.\d+)?)">/);
-      assert.match(output, /<testcase classname="phantomjs" name="it does &lt;cool> &quot;cool&quot; 'cool' stuff"/);
+      assert.match(output, /<testcase classname="chrome" name="it does &lt;cool> &quot;cool&quot; 'cool' stuff"/);
 
       assertXmlIsValid(output);
     });
@@ -388,7 +388,7 @@ describe('test reporters', function() {
         write.apply(process.stdout, [string, encoding, fd]);
         displayed = true;
       };
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it does stuff',
         passed: true,
         logs: []
@@ -399,7 +399,7 @@ describe('test reporters', function() {
 
     it('outputs errors', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it didnt work',
         passed: false,
         error: {
@@ -422,7 +422,7 @@ describe('test reporters', function() {
         xunit_exclude_stack: true
       });
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it didnt work',
         passed: false,
         error: {
@@ -441,7 +441,7 @@ describe('test reporters', function() {
 
     it('outputs skipped tests', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it didnt work',
         passed: false,
         skipped: true
@@ -455,7 +455,7 @@ describe('test reporters', function() {
 
     it('skipped tests are not considered failures', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it didnt work',
         passed: false,
         skipped: true
@@ -469,7 +469,7 @@ describe('test reporters', function() {
 
     it('outputs failed tests', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it didnt work',
         passed: false
       });
@@ -482,7 +482,7 @@ describe('test reporters', function() {
 
     it('XML escapes errors', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it failed with quotes',
         passed: false,
         error: {
@@ -499,7 +499,7 @@ describe('test reporters', function() {
 
     it('XML escapes messages', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it failed with ampersands',
         passed: false,
         error: { message: '&&' }
@@ -514,7 +514,7 @@ describe('test reporters', function() {
 
     it('presents valid XML with null messages', function() {
       var reporter = new XUnitReporter(false, stream, config);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'null',
         passed: false,
         error: { message: null }
@@ -535,17 +535,17 @@ describe('test reporters', function() {
 
     it('writes out and XML escapes results', function() {
       var reporter = new TeamcityReporter(false, stream);
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it does <cool> "cool" \'cool\' stuff',
         passed: true,
         runDuration: 1234
       });
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it skips stuff',
         skipped: true
       });
 
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it handles failures',
         passed: false,
         error: {
@@ -555,7 +555,7 @@ describe('test reporters', function() {
         }
       });
 
-      reporter.report('phantomjs', {
+      reporter.report('chrome', {
         name: 'it handles undefined errors',
         passed: false,
         skipped: undefined,
@@ -568,17 +568,17 @@ describe('test reporters', function() {
       var output = stream.read().toString();
 
       assert.match(output, /##teamcity\[testSuiteFinished name='testem\.suite' duration='(\d+(\.\d+)?)'\]/);
-      assert.match(output, /##teamcity\[testStarted name='phantomjs - it does <cool> "cool" \|'cool\|' stuff']/);
-      assert.match(output, /##teamcity\[testFinished name='phantomjs - it does <cool> "cool" \|'cool\|' stuff' duration='1234']/);
-      assert.match(output, /##teamcity\[testStarted name='phantomjs - it skips stuff']/);
-      assert.match(output, /##teamcity\[testIgnored name='phantomjs - it skips stuff' message='pending']/);
-      assert.match(output, /##teamcity\[testFinished name='phantomjs - it skips stuff']/);
-      assert.match(output, /##teamcity\[testStarted name='phantomjs - it handles failures']/);
-      assert.match(output, /##teamcity\[testFailed name='phantomjs - it handles failures' message='foo' details='bar']/);
-      assert.match(output, /##teamcity\[testFinished name='phantomjs - it handles failures']/);
-      assert.match(output, /##teamcity\[testStarted name='phantomjs - it handles undefined errors']/);
-      assert.match(output, /##teamcity\[testFailed name='phantomjs - it handles undefined errors' message='' details='']/);
-      assert.match(output, /##teamcity\[testFinished name='phantomjs - it handles undefined errors' duration='42']/);
+      assert.match(output, /##teamcity\[testStarted name='chrome - it does <cool> "cool" \|'cool\|' stuff']/);
+      assert.match(output, /##teamcity\[testFinished name='chrome - it does <cool> "cool" \|'cool\|' stuff' duration='1234']/);
+      assert.match(output, /##teamcity\[testStarted name='chrome - it skips stuff']/);
+      assert.match(output, /##teamcity\[testIgnored name='chrome - it skips stuff' message='pending']/);
+      assert.match(output, /##teamcity\[testFinished name='chrome - it skips stuff']/);
+      assert.match(output, /##teamcity\[testStarted name='chrome - it handles failures']/);
+      assert.match(output, /##teamcity\[testFailed name='chrome - it handles failures' message='foo' details='bar']/);
+      assert.match(output, /##teamcity\[testFinished name='chrome - it handles failures']/);
+      assert.match(output, /##teamcity\[testStarted name='chrome - it handles undefined errors']/);
+      assert.match(output, /##teamcity\[testFailed name='chrome - it handles undefined errors' message='' details='']/);
+      assert.match(output, /##teamcity\[testFinished name='chrome - it handles undefined errors' duration='42']/);
     });
 
     it('uses comparisonFailure type for comparison errors', function () {
