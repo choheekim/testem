@@ -267,6 +267,9 @@ var Testem = {
         case 'stop-run':
           self.emit('after-tests-complete');
           break;
+        case 'disconnect':
+          console.log('[testem_client] disconnect recieved');
+          break;
         default:
           if (type && type.indexOf('testem:') === 0) {
             self.emit(type, message.data);
